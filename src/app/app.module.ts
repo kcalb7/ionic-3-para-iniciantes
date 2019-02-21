@@ -13,6 +13,8 @@ import { IntroPageModule } from '../pages/intro/intro.module';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';// não esquecer desse
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     FeedPageModule,
-    IntroPageModule
+    IntroPageModule,
+    HttpModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
