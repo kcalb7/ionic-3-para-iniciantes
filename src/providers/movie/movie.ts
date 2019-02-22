@@ -20,4 +20,9 @@ export class MovieProvider {
     return this.http.get(this.url_base + "/movie/latest" + this.api_key);
   }
 
+  getPopularMovies() {
+    // return this.http.get(this.url_base + "/movie/top_rated" + this.api_key + "&language=pt-BR");
+    return this.http.get(this.url_base + "/movie/popular" + this.api_key + "&language=pt-BR");
+  }
+
 }

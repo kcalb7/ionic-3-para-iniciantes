@@ -18,40 +18,31 @@ import { MovieProvider } from '../../providers/movie/movie';
   ]
 })
 export class FeedPage {
-  private obj_feed = {
-    titulo: "Douglas Braga",
-    data: "2019-02-05",
-    descricao: "Alguma coisa nada a ver....",
-    qtd_likes: 12,
-    qtd_comments: 5,
-    time_comment: "11h ago"
-  }
-  private array_movies;
+  private array_movies = new Array<any>();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private movieProvider: MovieProvider) {
   }
 
-  getObj_feed() {
-    return this.obj_feed;
+  setArray_movies() {
+    this.movieProvider.getPopularMovies().subscribe(
+      data => {
+        const response = (JSON.stringify(data));
+        const obj_retorno = JSON.parse(response).results;
+        this.array_movies = obj_retorno;
+        console.log(this.getArray_movies());
+      }, error => {
+        console.log(error);
+      }
+    )
   }
 
-  setArray_movies () {
-    this.array_movies = this.movieProvider.getLatestMovies().subscribe(
-                          data=>{
-                            console.log(data);
-                          }, error=>{
-                            console.log(error);
-                          }
-                        )
-  }
-
-  getArray_movies(){
+  getArray_movies() {
     return this.array_movies;
   }
 
   ionViewDidLoad() {
-    this.setArray_movies();
     console.log('ionViewDidLoad FeedPage');
+    this.setArray_movies();
   }
 
 }
