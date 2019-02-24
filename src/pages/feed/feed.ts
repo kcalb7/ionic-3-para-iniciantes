@@ -26,9 +26,8 @@ export class FeedPage {
   setArray_movies() {
     this.movieProvider.getPopularMovies().subscribe(
       data => {
-        const response = (JSON.stringify(data));
-        const obj_retorno = JSON.parse(response).results;
-        this.array_movies = obj_retorno;
+        const response = JSON.parse(JSON.stringify(data)).results;
+        this.array_movies = response;
         console.log(this.getArray_movies());
       }, error => {
         console.log(error);

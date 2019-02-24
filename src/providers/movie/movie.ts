@@ -16,13 +16,16 @@ export class MovieProvider {
     console.log('Hello MovieProvider Provider');
   }
 
-  getLatestMovies() {
-    return this.http.get(this.url_base + "/movie/latest" + this.api_key);
+  getLatestMovie() {
+    return this.http.get(this.url_base + "/movie/now_playing" + this.api_key + "&language=pt-BR");
   }
 
   getPopularMovies() {
-    // return this.http.get(this.url_base + "/movie/top_rated" + this.api_key + "&language=pt-BR");
     return this.http.get(this.url_base + "/movie/popular" + this.api_key + "&language=pt-BR");
+  }
+
+  getTopRatedMovies() {
+    return this.http.get(this.url_base + "/movie/top_rated" + this.api_key + "&language=pt-BR");
   }
 
 }

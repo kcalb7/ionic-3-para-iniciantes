@@ -13,15 +13,16 @@
 <ion-content no-bounce>
   <ion-slides pager>
     <ion-slide style="background-color:gray" padding>
-      <img src="assets/imgs/logo.png" alt="img">
+      <img src="assets/imgs/logo.png" alt="logo">
+      <h1>Filmes</h1>
+    </ion-slide>
+    <ion-slide padding>
+      <img [src]="'https://image.tmdb.org/t/p/original' +  getLatest_movie().backdrop_path" [alt]="getLatest_movie().title">
       <h1>
         <a (click)="gototabs()">
-          Tabs
+          Listas
         </a>
       </h1>
-    </ion-slide>
-    <ion-slide>
-      <h1>Slide</h1>
     </ion-slide>
   </ion-slides>
 </ion-content>
