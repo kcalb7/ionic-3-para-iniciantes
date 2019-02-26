@@ -33,7 +33,7 @@ export class IntroPage {
       data => {
         const response = JSON.parse(JSON.stringify(data)).results;
         this.latest_movie = response[0];
-        console.log(this.getLatest_movie());
+        // console.log(this.getLatest_movie());
       },
       error => {
         console.log(error);

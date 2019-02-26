@@ -28,7 +28,7 @@ export class FeedPage {
       data => {
         const response = JSON.parse(JSON.stringify(data)).results;
         this.array_movies = response;
-        console.log(this.getArray_movies());
+        // console.log(this.getArray_movies());
       }, error => {
         console.log(error);
       }
