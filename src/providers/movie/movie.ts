@@ -28,4 +28,8 @@ export class MovieProvider {
     return this.http.get(this.url_base + "/movie/top_rated" + this.api_key + "&language=pt-BR");
   }
 
+  getMovie(id) {
+    return this.http.get(this.url_base + "/movie/" + id + this.api_key + "&language=pt-BR");
+  }
+
 }

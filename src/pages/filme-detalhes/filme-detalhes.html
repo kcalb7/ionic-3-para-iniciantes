@@ -1,23 +1,26 @@
 <!--
-  Generated template for the FeedPage page.
+  Generated template for the FilmeDetalhesPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Populares</ion-title>
+    <ion-title>Detalhes do filme</ion-title>
   </ion-navbar>
 </ion-header>
+
 <ion-content padding>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-card *ngFor="let filme of getArray_movies()">
+  <ion-card *ngIf="filme">
     <h1 class="user">{{ filme.title }}</h1>
+    <p class="user">{{ filme.original_title }}</p>
     <h5 class="user">{{ filme.release_date | date: 'dd/MM/yyyy' }}</h5>
     <img [src]="'https://image.tmdb.org/t/p/original' + filme.backdrop_path" [alt]="filme.original_title">
-    <button ion-button block (click)="abrirDetalhes(filme.id)">Detalhes</button>
+    <p class="user">{{ filme.overview }}</p>
+    <p>Nota: {{filme.vote_average}}</p>
   </ion-card>
   <br />
 </ion-content>

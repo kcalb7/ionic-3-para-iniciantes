@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
+import { FilmeDetalhesPage } from '../filme-detalhes/filme-detalhes';
 
 /**
  * Generated class for the FeedPage page.
@@ -49,6 +50,11 @@ export class FeedPage {
     return this.array_movies;
   }
 
+  abrirDetalhes(filme) {
+    this.navCtrl.push(FilmeDetalhesPage, { id: filme });
+    console.log(filme);
+  }
+
   setArray_movies() {
     this.presentLoading();
     this.movieProvider.getPopularMovies().subscribe(
@@ -57,14 +63,14 @@ export class FeedPage {
         this.array_movies = response;
         // console.log(this.getArray_movies());
         this.closeLoading();
-        if(this.isRefreshing) {
+        if (this.isRefreshing) {
           this.refresher.complete();
           this.isRefreshing = false;
         }
       }, error => {
         console.log(error);
         this.closeLoading();
-        if(this.isRefreshing) {
+        if (this.isRefreshing) {
           this.refresher.complete();
           this.isRefreshing = false;
         }
