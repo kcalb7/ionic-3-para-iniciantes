@@ -5,13 +5,7 @@ const config_key_name = "config";
 @Injectable()
 export class ConfigProvider {
 
-  constructor() {
-    let config = {
-      showSlide: false,
-      name: "",
-      username: ""
-    };
-  }
+  constructor() {}
 
   getConfigData() {
     // return JSON.parse(localStorage.getItem(config_key_name));

@@ -9,8 +9,10 @@
     <ion-title>Populares</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card *ngFor="let filme of getArray_movies()">
     <h1 class="user">{{ filme.title }}</h1>
     <h5 class="user">{{ filme.release_date | date: 'dd/MM/yyyy' }}</h5>

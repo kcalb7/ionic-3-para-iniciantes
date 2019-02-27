@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { MovieProvider } from '../../providers/movie/movie';
 
 /**
@@ -19,28 +19,64 @@ import { MovieProvider } from '../../providers/movie/movie';
 })
 export class FeedPage {
   private array_movies = new Array<any>();
+  private loader;
+  private refresher;
+  private isRefreshing = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private movieProvider: MovieProvider) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private movieProvider: MovieProvider,
+    public loadingCtrl: LoadingController) { }
+
+  async presentLoading() {
+    this.loader = await this.loadingCtrl.create({
+      content: "Aguarde.."
+    });
+    await this.loader.present();
   }
 
-  setArray_movies() {
-    this.movieProvider.getPopularMovies().subscribe(
-      data => {
-        const response = JSON.parse(JSON.stringify(data)).results;
-        this.array_movies = response;
-        // console.log(this.getArray_movies());
-      }, error => {
-        console.log(error);
-      }
-    )
+  doRefresh(event) {
+    this.setArray_movies();
+    this.refresher = event;
+    this.isRefreshing = true;
+  }
+
+  closeLoading() {
+    this.loader.dismiss();
   }
 
   getArray_movies() {
     return this.array_movies;
   }
 
+  setArray_movies() {
+    this.presentLoading();
+    this.movieProvider.getPopularMovies().subscribe(
+      data => {
+        const response = JSON.parse(JSON.stringify(data)).results;
+        this.array_movies = response;
+        // console.log(this.getArray_movies());
+        this.closeLoading();
+        if(this.isRefreshing) {
+          this.refresher.complete();
+          this.isRefreshing = false;
+        }
+      }, error => {
+        console.log(error);
+        this.closeLoading();
+        if(this.isRefreshing) {
+          this.refresher.complete();
+          this.isRefreshing = false;
+        }
+      }
+    )
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedPage');
+  }
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter FeedPage');
     this.setArray_movies();
   }
 

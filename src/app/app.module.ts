@@ -15,6 +15,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';// não esquecer desse
+import { ConfiguracoesPageModule } from '../pages/configuracoes/configuracoes.module';
+import { SobrePageModule } from '../pages/sobre/sobre.module';
+import { PerfilPageModule } from '../pages/perfil/perfil.module';
+import { ConfiguracoesPage } from '../pages/configuracoes/configuracoes';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { HttpClientModule } from '@angular/common/http';// não esquecer desse
     FeedPageModule,
     IntroPageModule,
     HttpModule,
-    HttpClientModule
+    HttpClientModule,
+    ConfiguracoesPageModule,
+    SobrePageModule,
+    PerfilPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -38,7 +45,8 @@ import { HttpClientModule } from '@angular/common/http';// não esquecer desse
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ConfiguracoesPage
   ],
   providers: [
     StatusBar,
