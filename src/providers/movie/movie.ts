@@ -20,8 +20,8 @@ export class MovieProvider {
     return this.http.get(this.url_base + "/movie/now_playing" + this.api_key + "&language=pt-BR");
   }
 
-  getPopularMovies() {
-    return this.http.get(this.url_base + "/movie/popular" + this.api_key + "&language=pt-BR");
+  getPopularMovies(page = 1) {
+    return this.http.get(this.url_base + "/movie/popular" + this.api_key + "&language=pt-BR&page=" + page);
   }
 
   getTopRatedMovies() {
@@ -29,7 +29,7 @@ export class MovieProvider {
   }
 
   getMovie(id) {
-    return this.http.get(this.url_base + "/movie/" + id + this.api_key + "&language=pt-BR");
+    return this.http.get(this.url_base + `/movie/${id}` + this.api_key + "&language=pt-BR");
   }
 
 }

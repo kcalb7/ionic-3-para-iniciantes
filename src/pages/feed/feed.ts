@@ -23,27 +23,36 @@ export class FeedPage {
   private loader;
   private refresher;
   private isRefreshing = false;
+  private infiniteScroll;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private movieProvider: MovieProvider,
     public loadingCtrl: LoadingController) { }
+  private page = 1;
 
-  async presentLoading() {
-    this.loader = await this.loadingCtrl.create({
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
       content: "Aguarde.."
     });
-    await this.loader.present();
+    this.loader.present();
+  }
+
+  closeLoading() {
+    this.loader.dismiss();
   }
 
   doRefresh(event) {
     this.setArray_movies();
     this.refresher = event;
     this.isRefreshing = true;
+    this.page = 1;
   }
 
-  closeLoading() {
-    this.loader.dismiss();
+  loadData(event) {
+    this.page++;
+    this.infiniteScroll = event;
+    this.setArray_movies(true);
   }
 
   getArray_movies() {
@@ -55,18 +64,25 @@ export class FeedPage {
     console.log(filme);
   }
 
-  setArray_movies() {
+  setArray_movies(newPage: boolean = false) {
     this.presentLoading();
-    this.movieProvider.getPopularMovies().subscribe(
+    this.movieProvider.getPopularMovies(this.page).subscribe(
       data => {
         const response = JSON.parse(JSON.stringify(data)).results;
-        this.array_movies = response;
+
+        if (newPage){
+          this.array_movies = this.array_movies.concat(response);
+          this.infiniteScroll.complete();
+        }
+        else
+          this.array_movies = response;
+
         // console.log(this.getArray_movies());
-        this.closeLoading();
         if (this.isRefreshing) {
           this.refresher.complete();
           this.isRefreshing = false;
         }
+        this.closeLoading();
       }, error => {
         console.log(error);
         this.closeLoading();
@@ -82,8 +98,8 @@ export class FeedPage {
     console.log('ionViewDidLoad FeedPage');
   }
   ionViewDidEnter() {
-    console.log('ionViewDidEnter FeedPage');
     this.setArray_movies();
+    console.log('ionViewDidEnter FeedPage');
   }
 
 }
